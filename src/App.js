@@ -21,6 +21,15 @@ function App() {
         "pivot": {
           "recipe_id": 1,
           "ingredient_id": 1
+        },
+        "image": {
+          "image_id": 3,
+          "title": "Ajo_image",
+          "image": "ajo.jpg",
+          "imageable_id": 1,
+          "imageable_type": "App\\Models\\Ingredients",
+          "created_at": "2022-09-16T02:43:40.000000Z",
+          "updated_at": "2022-09-16T02:43:40.000000Z"
         }
       },
       {
@@ -31,6 +40,15 @@ function App() {
         "pivot": {
           "recipe_id": 1,
           "ingredient_id": 2
+        },
+        "image": {
+          "image_id": 4,
+          "title": "Pan de hogaza_image",
+          "image": "pan.jpg",
+          "imageable_id": 2,
+          "imageable_type": "App\\Models\\Ingredients",
+          "created_at": "2022-09-16T02:43:40.000000Z",
+          "updated_at": "2022-09-16T02:43:40.000000Z"
         }
       },
       {
@@ -41,6 +59,15 @@ function App() {
         "pivot": {
           "recipe_id": 1,
           "ingredient_id": 3
+        },
+        "image": {
+          "image_id": 5,
+          "title": "Tomate_image",
+          "image": "tomate.jpg",
+          "imageable_id": 3,
+          "imageable_type": "App\\Models\\Ingredients",
+          "created_at": "2022-09-16T02:43:40.000000Z",
+          "updated_at": "2022-09-16T02:43:40.000000Z"
         }
       },
       {
@@ -51,6 +78,15 @@ function App() {
         "pivot": {
           "recipe_id": 1,
           "ingredient_id": 4
+        },
+        "image": {
+          "image_id": 6,
+          "title": "Aceite de oliva_image",
+          "image": "aceite_oliva.jpg",
+          "imageable_id": 4,
+          "imageable_type": "App\\Models\\Ingredients",
+          "created_at": "2022-09-16T02:43:40.000000Z",
+          "updated_at": "2022-09-16T02:43:40.000000Z"
         }
       }
     ],
