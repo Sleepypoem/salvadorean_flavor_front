@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContextProvider';
 
-function Login() {
+function LoginForm() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const { setToken, token } = useContext(UserContext);
 
@@ -17,6 +19,7 @@ function Login() {
         })
 
         setToken(data.data.access_token);
+        navigate("/home")
     }
 
     const emailInput = (e) => {
@@ -28,7 +31,6 @@ function Login() {
     }
     return (
         <div className='container'>
-            <h1>{token}</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="user-name" className="form-label">Name</label>
@@ -44,4 +46,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginForm;
