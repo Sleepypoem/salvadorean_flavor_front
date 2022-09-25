@@ -19,7 +19,7 @@ function LoginForm() {
         })
 
         setToken(data.data.access_token);
-        navigate("/home")
+        navigate("/")
     }
 
     const emailInput = (e) => {
