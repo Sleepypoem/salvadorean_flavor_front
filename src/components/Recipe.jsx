@@ -1,4 +1,5 @@
 import React from 'react';
+import { IMAGE_URL } from '../utils/Links';
 import Ingredient from './Ingredient';
 import Tag from './Tag';
 
@@ -11,7 +12,7 @@ function Recipe(props) {
             <h1>{recipe?.name}</h1>
             <h2>{recipe?.steps}</h2>
             <h3>{recipe?.category?.name}</h3>
-            <img src={`http://127.0.0.1:8000/api/image/recipe/${recipe?.image.image}`} alt={recipe?.name + " image"} style={{ width: "350px" }} />
+            <img src={`${IMAGE_URL}recipe/${recipe?.image?.image}`} alt={recipe?.name + " image"} style={{ width: "350px" }} />
             <div className='row row-cols-1 row-cols-md-3 g-4'>
                 {
                     recipe?.ingredients.map((ingredient, idx) => {
