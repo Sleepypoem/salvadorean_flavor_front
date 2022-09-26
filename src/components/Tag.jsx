@@ -4,7 +4,7 @@ function Tag(props) {
 
     const { name } = props;
     return (
-        <div>
+        <div className='containerTags'>
             <button class="badge badge-primary">{name}</button>
         </div>
     );

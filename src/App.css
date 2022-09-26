@@ -1,3 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+
 .App {
   /* text-align: center; */
 }
@@ -28,6 +37,67 @@
   color: #61dafb;
 }
 
+.containerRecipe{
+position: absolute;
+width: 1440px;
+height: 0px;
+left: 0px;
+top: 304px;
+
+
+}
+.imgRecipe{
+  float: left;
+  position: static;
+}
+.containerSteps{
+  align-items: flex-end;
+  position: absolute;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  
+}
+
+h1{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  align: middle;
+  font: size 1px;
+}
+
+.containerName{
+  margin:justify;
+}
+
+.ImagesIngredients{
+  padding: 70px 0;
+  border: 3px solid green;
+  -webkit-border-radius: 5px 10px;
+  -moz-border-radius: 5px 10px;
+  background-color: #FCC05A;
+}
+
+.card-body{
+  margin: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  flex-wrap: wrap;  
+  float: left;
+  width: 165px;
+  height: 162px;
+}
+.card-title{
+  position:absolute;
+}
+.card-footer{
+  position:sticky;
+}
+.containerTags{
+  align-items: center;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +106,6 @@
     transform: rotate(360deg);
   }
 }
+
+
+
