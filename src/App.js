@@ -11,6 +11,8 @@ import NavBar from './components/NavBar';
 import RecipesSection from './sections/RecipesSection';
 import CategoriesSection from "./sections/CategoriesSection";
 import IngredientsSection from './sections/IngredientsSection';
+import RecipeShowSection from './sections/RecipeShowSection';
+import IngredientShowSection from './sections/IngredientShowSection';
 
 function App() {
 
@@ -32,6 +34,11 @@ function App() {
               <RecipesSection />
             </PrivateRoute>
           } />
+          <Route path="/recipe/:recipeId" element={
+            <PrivateRoute>
+              <RecipeShowSection />
+            </PrivateRoute>
+          } />
           <Route path="/categories" element={
             <PrivateRoute>
               <CategoriesSection />
@@ -40,6 +47,11 @@ function App() {
           <Route path="/ingredients" element={
             <PrivateRoute>
               <IngredientsSection />
+            </PrivateRoute>
+          } />
+          <Route path="/ingredient/:ingredientId" element={
+            <PrivateRoute>
+              <IngredientShowSection />
             </PrivateRoute>
           } />
           <Route path="/login" element={<LoginSection />} />

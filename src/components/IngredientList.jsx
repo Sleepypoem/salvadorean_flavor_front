@@ -1,35 +1,33 @@
 import axios from 'axios';
-import React from 'react';
-import { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../context/UserContextProvider';
 import { BASE_URL } from '../utils/Links';
-import RecipeCard from './RecipeCard';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { RESPONSIVE_SETTINGS } from '../utils/Carousel_Settings';
+import IngredientCard from "./IngredientCard";
 
-
-function RecipesList() {
-
-    const [recipes, setRecipes] = useState([]);
+function IngredientList() {
+    const [ingredients, setIngredients] = useState([]);
     const [loading, setLoading] = useState(true);
     const { token } = useContext(UserContext);
 
-    const getRecipes = async () => {
+    const getIngredients = async () => {
         setLoading(true);
-        let data = await axios.get(`${BASE_URL}recipes/`, {
+        let data = await axios.get(`${BASE_URL}ingredients/`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
 
-        setRecipes(data.data.data)
+        setIngredients(data.data)
         setLoading(false);
     }
 
     useEffect(() => {
-        getRecipes();
+        getIngredients();
+        console.log(ingredients[0]);
     }, [])
 
     return (
@@ -37,12 +35,12 @@ function RecipesList() {
             <div>
                 <Slider {...RESPONSIVE_SETTINGS} >
                     {
-                        recipes.map((recipe, idx) => {
-                            return <RecipeCard key={idx} name={recipe.name} image={recipe.image?.image} id={recipe.recipe_id} />
+                        ingredients.map((ingredient, idx) => {
+                            return <IngredientCard key={idx} name={ingredient.name} image={ingredient.image?.image} id={ingredient.ingredient_id} />
                         })
                     }</Slider>
             </div>
     );
 }
 
-export default RecipesList;
+export default IngredientList;
