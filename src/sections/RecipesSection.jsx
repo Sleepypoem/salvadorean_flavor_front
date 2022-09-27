@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RecipesList from '../components/RecipesList';
 
 function RecipesSection() {
@@ -7,6 +8,7 @@ function RecipesSection() {
             <h1>Recipes</h1>
             <RecipesList />
         </div>
+
     );
 }
 

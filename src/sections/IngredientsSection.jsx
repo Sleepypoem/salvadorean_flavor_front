@@ -1,9 +1,10 @@
 import React from 'react';
+import IngredientList from '../components/IngredientList';
 
 function IngredientsSection(props) {
     return (
         <div>
-            <h1>Ingredients</h1>
+            <IngredientList />
         </div>
     );
 }
