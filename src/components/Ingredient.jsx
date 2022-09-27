@@ -1,4 +1,5 @@
 import React from 'react';
+import { IMAGE_URL } from '../utils/Links';
 import './Recipe.css';
 
 function Ingredient(props) {

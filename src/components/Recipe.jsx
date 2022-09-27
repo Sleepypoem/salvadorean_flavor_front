@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { IMAGE_URL } from '../utils/Links';
 import Ingredient from './Ingredient';
 import Tag from './Tag';
 import './Recipe.css';
@@ -14,7 +15,7 @@ function Recipe(props) {
                 <h3>{recipe?.category?.name}</h3> 
                 <h1>{recipe?.name}</h1>
                 <section className='recipe'>
-                    <img className='imgRecipe' src={`http://127.0.0.1:8000/api/image/recipe/${recipe?.image.image}`} alt={recipe?.name + " image"} style={{ width: "600px" }} />    
+                    <img className='imgRecipe' src={`http://127.0.0.1:8000/api/image/recipe/${recipe?.image?.image}`} alt={recipe?.name + " image"} style={{ width: "600px" }} />    
                 </section>  
                 <section className='bck'>
                 <h2>Ingredients</h2>
