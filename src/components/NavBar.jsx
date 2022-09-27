@@ -2,23 +2,40 @@ import React from 'react';
 import { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/UserContextProvider';
+import { IMAGE_URL } from '../utils/Links';
 
 
 function NavBar() {
-    const { token } = useContext(UserContext);
+    const { token, user } = useContext(UserContext);
     return (
         token === null ? null :
-            <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                <div className="container">
-                    <Link className="navbar-brand" href="/">Salvadorean Flavor</Link>
-                    <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+            <nav className="navbar navbar-expand-xxl navbar-light bg-light">
+
+
+                <div className="container-fluid">
+
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <i className="fas fa-bars"></i>
                     </button>
-                    <div className="collapse navbar-collapse" id="collapsibleNavId">
-                        <ul className="navbar-nav me-auto mt-2 mt-lg-0">
+
+
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <Link className="navbar-brand mt-2 mt-lg-0" to="/">
+                            <h2>Salvadorean Flavor</h2>
+                        </Link>
+
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/" aria-current="page">Home <span className="visually-hidden">(current)</span></Link>
+                                <Link className="nav-link" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/recipes">Recipes</Link>
@@ -26,20 +43,56 @@ function NavBar() {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/ingredients">Ingredients</Link>
                             </li>
-                            <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</Link>
-                                <div className="dropdown-menu" aria-labelledby="dropdownId">
-                                    <Link className="dropdown-item" to="/categories">Action 1</Link>
-                                    <Link className="dropdown-item" href="#">Action 2</Link>
-                                </div>
-                            </li>
                         </ul>
-                        <form className="d-flex my-2 my-lg-0">
-                            <input className="form-control me-sm-2" type="text" placeholder="Search" />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+
+
                     </div>
+
+                    <div className="d-flex align-items-center">
+
+
+                        <div className="dropdown ">
+
+                            <button
+                                className="dropdown-toggle btn btn-outline-secondary hidden-arrow"
+                                id="navbarDropdownMenuAvatar"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+
+                                style={{ width: "150px" }}
+                            >
+                                <img
+                                    src={`${IMAGE_URL}user/${user.image?.image}`}
+                                    className="rounded-circle"
+                                    height="50"
+                                    alt="Black and White Portrait of a Man"
+                                    loading="lazy"
+                                />
+                            </button>
+                            <ul
+                                className="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="navbarDropdownMenuAvatar"
+                            >
+                                <li>
+                                    <Link className="dropdown-item" to="#">My profile</Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="#">Settings</Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="#">Logout</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
                 </div>
+
+
+
+
+
             </nav>
 
     );
