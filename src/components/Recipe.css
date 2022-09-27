@@ -1,0 +1,53 @@
+
+h1{
+    margin-bottom: 5rem;
+    color: #C86D30;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+
+h2{
+    margin-left: 5%;
+    padding-top: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #C86D30;
+}
+
+h5{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+.bck{
+    border-radius: 5px;
+    background: #c86d3042;
+}
+.ImagesIngredients{
+    display: flex;
+    justify-content: space-evenly;/* Espacio entre los elementos*/
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ffffff ;
+    padding-top: 10px;
+    margin-top: 5px;
+    padding-bottom: 15px;
+
+}
+.card-title{
+    text-align: center;
+}
+.steps p{
+    text-align: justify;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-top: 5px;
+    padding-bottom: 5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;   
+}
+
+.tags{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    justify-items: right;
+    
+}
+

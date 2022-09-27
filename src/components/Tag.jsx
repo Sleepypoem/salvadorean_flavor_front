@@ -1,4 +1,5 @@
 import React from 'react';
+import './Recipe.css';
 
 function Tag(props) {
 
