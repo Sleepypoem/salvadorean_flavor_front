@@ -88,7 +88,7 @@ function IngredientForm(props) {
                     {props?.image ? <small className='text-muted'>Current image: {props?.image}</small> : ""}
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add ingredient</button>
+                <button type="submit" class="btn btn-primary">{editing ? "Edit" : "Add"} ingredient</button>
             </form>
         </div>
     );

@@ -16,6 +16,7 @@ import IngredientShowSection from './sections/IngredientShowSection';
 import RegisterSection from './sections/RegisterSection';
 import UserSection from './sections/UserSection';
 import AddIngredientSection from './sections/AddIngredientSection';
+import AddRecipeSection from './sections/AddRecipeSection';
 
 function App() {
 
@@ -40,6 +41,17 @@ function App() {
           <Route path="/recipe/:recipeId" element={
             <PrivateRoute>
               <RecipeShowSection />
+            </PrivateRoute>
+          } />
+
+          <Route path="/recipe/edit/:recipeId" element={
+            <PrivateRoute>
+              <AddRecipeSection />
+            </PrivateRoute>
+          } />
+          <Route path="/recipe/add" element={
+            <PrivateRoute>
+              <AddRecipeSection />
             </PrivateRoute>
           } />
           <Route path="/categories" element={

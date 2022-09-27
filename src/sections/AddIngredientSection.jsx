@@ -26,7 +26,6 @@ function AddIngredientSection() {
         })
 
         setIngredient(request.data);
-        console.log(request.data);
 
     }
 
