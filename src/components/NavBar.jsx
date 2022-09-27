@@ -6,7 +6,8 @@ import { IMAGE_URL } from '../utils/Links';
 
 
 function NavBar() {
-    const { token, user } = useContext(UserContext);
+    const { token, user, logout } = useContext(UserContext);
+
     return (
         token === null ? null :
             <nav className="navbar navbar-expand-xxl navbar-light bg-light">
@@ -75,13 +76,13 @@ function NavBar() {
                                 aria-labelledby="navbarDropdownMenuAvatar"
                             >
                                 <li>
-                                    <Link className="dropdown-item" to="#">My profile</Link>
+                                    <Link className="dropdown-item" to="/user/me">My profile</Link>
                                 </li>
                                 <li>
                                     <Link className="dropdown-item" to="#">Settings</Link>
                                 </li>
                                 <li>
-                                    <Link className="dropdown-item" to="#">Logout</Link>
+                                    <Link onClick={logout} role="button" className="dropdown-item" >Logout</Link>
                                 </li>
                             </ul>
                         </div>

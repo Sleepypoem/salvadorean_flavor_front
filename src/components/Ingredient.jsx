@@ -5,7 +5,6 @@ import './Recipe.css';
 function Ingredient(props) {
 
     const { ingredient } = props;
-    console.log(ingredient);
     return (
 
         <div className="col">

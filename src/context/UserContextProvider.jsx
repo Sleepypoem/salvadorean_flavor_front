@@ -13,13 +13,17 @@ export function UserContextProvider(props) {
 
     /* ************************************************************************************************************************************************ */
 
-
+    const logout = () => {
+        setToken(null);
+        setUser(null);
+    }
 
     const contextData = {
         token,
         setToken,
         user,
-        setUser
+        setUser,
+        logout
     };
     return (
         <>

@@ -10,6 +10,7 @@ function IngredientCard(props) {
             <div className="card-body text-center">
                 <h5 className="card-title">{name}</h5>
                 <Link to={`/ingredient/${id}`} className="btn btn-primary">View</Link>
+                <Link to={`/ingredient/edit/${id}`} className="btn btn-warning">Edit</Link>
             </div>
         </div>
     );

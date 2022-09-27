@@ -14,6 +14,8 @@ import IngredientsSection from './sections/IngredientsSection';
 import RecipeShowSection from './sections/RecipeShowSection';
 import IngredientShowSection from './sections/IngredientShowSection';
 import RegisterSection from './sections/RegisterSection';
+import UserSection from './sections/UserSection';
+import AddIngredientSection from './sections/AddIngredientSection';
 
 function App() {
 
@@ -53,6 +55,20 @@ function App() {
           <Route path="/ingredient/:ingredientId" element={
             <PrivateRoute>
               <IngredientShowSection />
+            </PrivateRoute>
+          } />
+          <Route path="/ingredient/edit/:ingredientId" element={
+            <PrivateRoute>
+              <AddIngredientSection />
+            </PrivateRoute>
+          } /><Route path="/ingredient/add" element={
+            <PrivateRoute>
+              <AddIngredientSection />
+            </PrivateRoute>
+          } />
+          <Route path="/user/me" element={
+            <PrivateRoute>
+              <UserSection />
             </PrivateRoute>
           } />
           <Route path="/login" element={<LoginSection />} />

@@ -5,7 +5,7 @@ import RecipesList from '../components/RecipesList';
 function RecipesSection() {
     return (
         <div>
-            <h1>Recipes</h1>
+            <h1 className="text-center">Recipes</h1>
             <RecipesList />
         </div>
 
