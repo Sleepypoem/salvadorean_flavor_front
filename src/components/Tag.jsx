@@ -6,7 +6,7 @@ function Tag(props) {
     const { name } = props;
     return (
         <div className='containerTags'>
-            <button class="badge badge-primary">{name}</button>
+            <button className="badge badge-primary">{name}</button>
         </div>
     );
 }
