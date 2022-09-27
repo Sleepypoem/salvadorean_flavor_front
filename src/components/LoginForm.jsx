@@ -30,7 +30,7 @@ function LoginForm() {
         setPassword(e.target.value)
     }
     return (
-        <div className='container'>
+        <div className='container mt-4'>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="user-name" className="form-label">Name</label>
