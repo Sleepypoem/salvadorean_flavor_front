@@ -11,6 +11,7 @@ function RecipeCard(props) {
             <div className="card-body text-center">
                 <h5 className="card-title">{name}</h5>
                 <Link to={`/recipe/${id}`} className="btn btn-primary">View</Link>
+                <Link to={`/recipe/edit/${id}`} className="btn btn-warning">Edit</Link>
             </div>
         </div>
     );

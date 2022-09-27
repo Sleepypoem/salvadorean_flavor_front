@@ -12,7 +12,7 @@ function AddRecipeSection(props) {
     const [recipe, setRecipe] = useState(null);
 
     const getRecipe = async () => {
-        if (recipeId === null) {
+        if (recipeId === undefined) {
             return
         }
 
@@ -31,7 +31,7 @@ function AddRecipeSection(props) {
     }, [])
     return (
         <div>
-            <RecipeForm />
+            <RecipeForm recipe={recipe} />
         </div>
     );
 }

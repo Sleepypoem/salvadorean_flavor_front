@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { UserContext } from '../context/UserContextProvider';
 import { BASE_URL } from '../utils/Links';
 import './RecipeForm.css';
+import Select from 'react-select'
 
 function RecipeForm(props) {
 
@@ -14,8 +15,14 @@ function RecipeForm(props) {
     const [category, setCategory] = useState("");
     const [image, setImage] = useState(null);
     const [editing, setEditing] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [ingredientsOpt, setIngredientsOpt] = useState([]);
+    const [categorysOpt, setCategoryOpt] = useState([]);
     const { token } = useContext(UserContext);
     const navigate = useNavigate();
+
+
+
 
 
     function encodeImageFileAsURL(e) {
@@ -37,75 +44,141 @@ function RecipeForm(props) {
         setSteps(text);
     }
 
+    const inputIngredients = (e) => {
+        let ingredientList = [];
+        e.map((id) => {
+            ingredientList.push(id.value);
+        })
+        setIngredients(ingredientList);
+    }
+
+    const inputCategories = (e) => {
+
+        setCategory(e);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        editing ? editIngredient() : addIngredient();
+        editing ? editRecipe() : addRecipe();
 
     }
 
-    const addIngredient = () => {
-        let newIngredient = {
+    const addRecipe = () => {
+        let newRecipe = {
             name,
+            steps,
+            "category_id": category,
+            ingredients,
             image
         }
 
-        let request = axios.post(`${BASE_URL}ingredient`, newIngredient, {
+        let request = axios.post(`${BASE_URL}recipe`, newRecipe, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
 
-        navigate("/ingredients");
+        navigate("/recipes");
     }
 
-    const editIngredient = () => {
-        let newIngredient = {
+    const editRecipe = () => {
+        let newRecipe = {
             name,
+            steps,
+            "category_id": category,
+            ingredients,
             image
         }
 
-        let request = axios.put(`${BASE_URL}ingredient/${props?.id}`, newIngredient, {
+        let request = axios.put(`${BASE_URL}recipe/${recipe?.recipe_id}`, newRecipe, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
 
-        navigate("/ingredients");
+        navigate("/recipes");
+    }
+
+    const getIngredientList = async () => {
+        setLoading(true);
+        let request = await axios.get(`${BASE_URL}ingredients`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        let ingredientOptions = [];
+        request.data?.map((ingredient) => {
+            ingredientOptions.push({ "value": ingredient?.ingredient_id, "label": ingredient?.name })
+        })
+
+        setIngredientsOpt(ingredientOptions);
+
+    }
+
+    const getCategoriesList = async () => {
+        setLoading(true)
+        let request = await axios.get(`${BASE_URL}categories`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        let categoryOptions = [];
+        request.data?.data?.map((category) => {
+            categoryOptions.push({ "value": category?.category_id, "label": category?.name })
+        })
+        setCategoryOpt(categoryOptions);
+        setLoading(false)
     }
 
     useEffect(() => {
-        props?.name ? setName(props.name) : setName("");
-        if (props !== undefined) {
+        getIngredientList();
+        getCategoriesList();
+        if (recipe !== undefined) {
             setEditing(true);
         }
-    }, [props])
+
+    }, [])
 
     return (
 
         <div className='container'>
             <section className='Recipeform'>
                 <h1>Add a new recipe!</h1>
-                <form className='Form' >
+                <form className='Form' onSubmit={handleSubmit} >
                     <div className="mb-3">
                         <label htmlFor="recipe-name" className="form-label">Recipe name</label>
-                        <input type="text" className="form-control" name="recipe-name" placeholder="Type recipe name." />
+                        <input onChange={inputName} type="text" value={recipe?.name} className="form-control" name="recipe-name" placeholder="Type recipe name." />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="ingredients" className="form-label">Ingredients</label>
-                        <input type="text" className="form-control" name="ingredients" placeholder="Type ingredients." />
+                        <label htmlFor="recipes" className="form-label">Ingredients</label>
+                        <Select onChange={inputIngredients}
+                            isMulti
+                            name="colors"
+                            options={ingredientsOpt}
+                            defaultValue={recipe?.ingredients}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="steps" className="form-label">Instructions</label>
-                        <input type="text" className="form-control" name="steps" placeholder="Type instructions." />
+                        <textarea onChange={inputSteps} className="form-control" name="steps" placeholder="Type instructions.">{recipe?.steps}</textarea>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="category" className="form-label">Category</label>
-                        <input type="text" className="form-control" name="category" placeholder="Add a category." />
+                        <Select onChange={inputCategories}
+                            name="colors"
+                            options={categorysOpt}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="image" className="form-label">Image</label>
-                        <input type="file" className="form-control" name="image" placeholder="Add a image." />
+                        <input onChange={encodeImageFileAsURL} type="file" className="form-control" name="image" placeholder="Add a image." />
                     </div>
                     <button type="submit" className="btn btn-primary mt-3">Submit</button>
                 </form>
