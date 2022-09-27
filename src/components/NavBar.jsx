@@ -54,20 +54,21 @@ function NavBar() {
                         <div className="dropdown ">
 
                             <button
-                                className="dropdown-toggle btn btn-outline-secondary hidden-arrow"
+                                className="dropdown-toggle btn btn-outline-secondary hidden-arrow "
                                 id="navbarDropdownMenuAvatar"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
 
-                                style={{ width: "150px" }}
+                                style={{ width: "200px" }}
                             >
                                 <img
-                                    src={`${IMAGE_URL}user/${user.image?.image}`}
+                                    src={`${IMAGE_URL}user/${user?.image?.image}`}
                                     className="rounded-circle"
                                     height="50"
+                                    width="50"
                                     alt="Black and White Portrait of a Man"
                                     loading="lazy"
-                                />
+                                />&nbsp;{user?.name}
                             </button>
                             <ul
                                 className="dropdown-menu dropdown-menu-end"

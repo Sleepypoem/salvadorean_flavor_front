@@ -13,6 +13,7 @@ import CategoriesSection from "./sections/CategoriesSection";
 import IngredientsSection from './sections/IngredientsSection';
 import RecipeShowSection from './sections/RecipeShowSection';
 import IngredientShowSection from './sections/IngredientShowSection';
+import RegisterSection from './sections/RegisterSection';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
             </PrivateRoute>
           } />
           <Route path="/login" element={<LoginSection />} />
+          <Route path="/register" element={<RegisterSection />} />
         </Routes>
       </Router>
     </div>
