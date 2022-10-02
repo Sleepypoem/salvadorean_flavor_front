@@ -10,6 +10,8 @@ function AddRecipeSection(props) {
     const { recipeId } = useParams();
     const { token } = useContext(UserContext);
     const [recipe, setRecipe] = useState(null);
+    const [defaultIngredients, setDefaultIngredients] = useState([]);
+    const [defaultCategory, setDefaultCategory] = useState([]);
 
     const getRecipe = async () => {
         if (recipeId === undefined) {
@@ -24,6 +26,15 @@ function AddRecipeSection(props) {
 
         setRecipe(request.data);
 
+        let defaultIngredients = request.data.ingredients.map((ingredient) => {
+            return { value: ingredient.ingredient_id, label: ingredient.name }
+        })
+
+        let defaultCategory = { value: request?.data?.category?.category_id, label: request?.data?.category?.name }
+
+        setDefaultIngredients(defaultIngredients);
+        setDefaultCategory(defaultCategory)
+
     }
 
     useEffect(() => {
@@ -31,7 +42,7 @@ function AddRecipeSection(props) {
     }, [])
     return (
         <div>
-            <RecipeForm recipe={recipe} />
+            <RecipeForm recipe={recipe} defaultIngredients={defaultIngredients} defaultCategory={defaultCategory} />
         </div>
     );
 }
