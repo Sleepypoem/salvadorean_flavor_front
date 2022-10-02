@@ -7,6 +7,8 @@ import { RESPONSIVE_SETTINGS } from '../utils/Carousel_Settings';
 import { UserContext } from '../context/UserContextProvider';
 import { BASE_URL } from '../utils/Links';
 import axios from 'axios';
+import LoadingScreen from '../components/LoadingScreen';
+import { useCallback } from 'react';
 
 function HomeSection() {
 
@@ -14,7 +16,7 @@ function HomeSection() {
     const [loading, setLoading] = useState(true);
     const { token } = useContext(UserContext);
 
-    const getRecipes = async () => {
+    const getRecipes = useCallback(async () => {
         setLoading(true);
         let data = await axios.get(`${BASE_URL}recipes/`, {
             headers: {
@@ -22,26 +24,28 @@ function HomeSection() {
             }
         });
 
-        setRecipes(data.data.data)
+        setRecipes(data?.data?.data)
         setLoading(false);
-    }
+    }, [token])
 
     useEffect(() => {
         getRecipes();
-    }, [])
-    return (
-        <div>
-            <h1 className="text-center">Salvadorean Flavor</h1>
-            <div>
-                <Slider {...RESPONSIVE_SETTINGS} >
-                    {
-                        recipes.map((recipe, idx) => {
-                            return <RecipeCard key={idx} name={recipe.name} image={recipe.image?.image} id={recipe.recipe_id} />
-                        })
-                    }</Slider>
-            </div>
+    }, [getRecipes])
 
-        </div>
+    return (
+        loading ? <LoadingScreen /> :
+            <div>
+                <h1 className="text-center">Salvadorean Flavor</h1>
+                <div>
+                    <Slider {...RESPONSIVE_SETTINGS} >
+                        {
+                            recipes?.map((recipe, idx) => {
+                                return <RecipeCard key={idx} name={recipe?.name} image={recipe?.image?.image} id={recipe?.recipe_id} />
+                            })
+                        }</Slider>
+                </div>
+
+            </div>
     );
 }
 

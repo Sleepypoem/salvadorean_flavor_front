@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useContext } from 'react';
+import { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContextProvider';
 import { BASE_URL } from '../utils/Links';
@@ -15,7 +16,7 @@ function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let data = await axios.post("//localhost:8000/api/v1/login", {
+        let data = await axios.post(`${BASE_URL}login`, {
             email,
             password
         })
@@ -31,28 +32,32 @@ function LoginForm() {
         navigate("/")
     }
 
-    const emailInput = (e) => {
-        setEmail(e.target.value)
-    }
+    const inputHandler = useCallback((setter) => {
+        return async (e) => {
+            let text = e.target.value;
+            setter(text);
+        }
+    }, [])
 
-    const passwordInput = (e) => {
-        setPassword(e.target.value)
-    }
     return (
-        <div className='container mt-4 w-50'>
+        <div className='container mt-4 w-50 border-top border-bottom border-dark p-3'>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="user-name" className="form-label">Name</label>
-                    <input onChange={emailInput} type="text" className="form-control" name="user-name" placeholder="Type your user name." />
+                    <input onChange={inputHandler(setEmail)} type="text" className="form-control" name="user-name" placeholder="Type your user name." />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="user-password" className="form-label">Password</label>
-                    <input onChange={passwordInput} type="password" className="form-control" name="user-password" placeholder="*******" />
+                    <input onChange={inputHandler(setPassword)} type="password" className="form-control" name="user-password" placeholder="*******" />
+                </div>
+                <div className="form-check form-check-inline mb-3">
+                    <input className="form-check-input" type="checkbox" id="keep-signed" value="keep" />
+                    <label className="form-check-label" htmlFor="keep-signed">Keep me signed in</label>
                 </div>
                 <div className='container d-flex flex-row justify-content-between'>
                     <button type="submit" className="btn btn-primary ">Sign in</button>
                     <div className='d-flex flex-row align-items-center justify-content-center'>
-                        <h6 >You don't have an account? &nbsp;</h6><Link className='btn btn-success btn-sm' to="/register">Sign up</Link></div>
+                        <h6 >You don't have an account? &nbsp;</h6><Link className='btn btn-success' to="/register">Sign up</Link></div>
                 </div>
             </form>
         </div>

@@ -7,13 +7,15 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { RESPONSIVE_SETTINGS } from '../utils/Carousel_Settings';
 import IngredientCard from "./IngredientCard";
+import { useCallback } from 'react';
 
 function IngredientList() {
     const [ingredients, setIngredients] = useState([]);
     const [loading, setLoading] = useState(true);
     const { token } = useContext(UserContext);
 
-    const getIngredients = async () => {
+
+    const getIngredients = useCallback(async () => {
         setLoading(true);
         let data = await axios.get(`${BASE_URL}ingredients/`, {
             headers: {
@@ -23,12 +25,11 @@ function IngredientList() {
 
         setIngredients(data.data)
         setLoading(false);
-    }
+    }, [token])
 
     useEffect(() => {
         getIngredients();
-        console.log(ingredients[0]);
-    }, [])
+    }, [getIngredients])
 
     return (
         loading ? null :
@@ -36,7 +37,7 @@ function IngredientList() {
                 <Slider {...RESPONSIVE_SETTINGS} >
                     {
                         ingredients.map((ingredient, idx) => {
-                            return <IngredientCard key={idx} name={ingredient.name} image={ingredient.image?.image} id={ingredient.ingredient_id} />
+                            return <IngredientCard key={idx} name={ingredient?.name} image={ingredient?.image?.image} id={ingredient?.ingredient_id} />
                         })
                     }</Slider>
             </div>

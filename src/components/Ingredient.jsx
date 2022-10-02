@@ -11,7 +11,7 @@ function Ingredient(props) {
             <div className="card h-100">
 
                 <div className="card-body">
-                    <img src={`${IMAGE_URL}ingredient/${ingredient?.image?.image}`} className="image-ing" alt={ingredient?.name + " image."} style={{ width: "200px", height: "200px" }} />
+                    <img src={`${IMAGE_URL}ingredient/${ingredient?.image?.image}`} className="image-ing mx-auto" alt={ingredient?.name + " image."} style={{ width: "200px", height: "200px" }} />
                     <h5 className="card-title">{ingredient?.name}</h5>
                 </div>
 
