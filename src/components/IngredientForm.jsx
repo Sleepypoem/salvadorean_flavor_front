@@ -5,13 +5,16 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../context/UserContextProvider';
-import { BASE_URL } from '../utils/Links';
+import { BASE_URL, IMAGE_URL } from '../utils/Links';
+import './RecipeForm.css';
 
 function IngredientForm(props) {
 
+    const { ingredient } = props;
     const [name, setName] = useState("");
     const [image, setImage] = useState(null);
     const [editing, setEditing] = useState(false);
+
     const { token } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -43,7 +46,7 @@ function IngredientForm(props) {
             image
         }
 
-        let request = axios.post(`${BASE_URL}ingredient`, newIngredient, {
+        axios.post(`${BASE_URL}ingredient`, newIngredient, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -58,7 +61,7 @@ function IngredientForm(props) {
             image
         }
 
-        let request = axios.put(`${BASE_URL}ingredient/${props?.id}`, newIngredient, {
+        axios.put(`${BASE_URL}ingredient/${ingredient?.ingredient_id}`, newIngredient, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -68,28 +71,30 @@ function IngredientForm(props) {
     }
 
     useEffect(() => {
-        props?.name ? setName(props.name) : setName("");
-        if (props !== undefined) {
+        if (ingredient !== null) {
             setEditing(true);
         }
-    }, [props])
+    }, [ingredient])
 
     return (
         <div className='container w-50 my-4'>
-            <form onSubmit={handleSubmit}>
-                <div class="mb-3">
-                    <label for="ingredient-name" class="form-label">Enter name.</label>
-                    <input onChange={inputName} type="text" value={name} class="form-control" id="ingredient-name" />
-                </div>
+            <section className='Form'>
+                <h1>{editing ? "Edit" : "Add a new"} ingredient!</h1>
+                <form className='FormBody needs-validation' onSubmit={handleSubmit}>
+                    <div class="mb-3">
+                        <label for="ingredient-name" class="form-label">Enter name.</label>
+                        <input onChange={inputName} type="text" defaultValue={ingredient?.name} class="form-control" id="ingredient-name" />
+                    </div>
+                    {ingredient?.image?.image ? <div className='text-center'><h3>Current image</h3><img src={`${IMAGE_URL}ingredient/${ingredient?.image?.image}`} alt={ingredient?.name} /></div> : ""}
+                    <div class="mb-3">
+                        <label for="ingredient-image" class="form-label">{editing ? "Edit" : "Enter"} image</label>
+                        <input onChange={encodeImageFileAsURL} type="file" class="form-control" id="ingredient-image" />
 
-                <div class="mb-3">
-                    <label for="ingredient-image" class="form-label">Enter image</label>
-                    <input onChange={encodeImageFileAsURL} type="file" class="form-control" id="ingredient-image" />
-                    {props?.image ? <small className='text-muted'>Current image: {props?.image}</small> : ""}
-                </div>
+                    </div>
 
-                <button type="submit" class="btn btn-primary">{editing ? "Edit" : "Add"} ingredient</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">{editing ? "Edit" : "Add"} ingredient</button>
+                </form>
+            </section>
         </div>
     );
 }

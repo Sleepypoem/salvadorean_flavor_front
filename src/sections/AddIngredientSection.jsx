@@ -35,7 +35,7 @@ function AddIngredientSection() {
 
     return (
         <div>
-            <IngredientForm id={ingredient?.ingredient_id} name={ingredient?.name} image={ingredient?.image?.image} />
+            <IngredientForm ingredient={ingredient} id={ingredient?.ingredient_id} name={ingredient?.name} image={ingredient?.image?.image} />
         </div>
     );
 }

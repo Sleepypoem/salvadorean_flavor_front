@@ -15,7 +15,7 @@ function Recipe(props) {
             <h1>{recipe?.name}</h1>
             <h3>{recipe?.category?.name}</h3>
             <section className='recipe'>
-                <img className='imgRecipe' src={`http://127.0.0.1:8000/api/image/recipe/${recipe?.image?.image}`} alt={recipe?.name + " image"} style={{ width: "600px" }} />
+                <img className='imgRecipe' src={`${IMAGE_URL}recipe/${recipe?.image?.image}`} alt={recipe?.name + " image"} style={{ width: "600px" }} />
             </section>
             <section className='bck'>
                 <h2>Ingredients</h2>

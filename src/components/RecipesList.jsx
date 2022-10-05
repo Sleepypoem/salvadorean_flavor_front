@@ -8,6 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { RESPONSIVE_SETTINGS } from '../utils/Carousel_Settings';
+import LoadingScreen from './LoadingScreen';
 
 
 function RecipesList() {
@@ -33,7 +34,7 @@ function RecipesList() {
     }, [getRecipes])
 
     return (
-        loading ? null :
+        loading ? <LoadingScreen /> :
             <div>
                 <Slider {...RESPONSIVE_SETTINGS} >
                     {
