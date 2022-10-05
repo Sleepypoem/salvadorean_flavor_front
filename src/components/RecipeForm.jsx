@@ -9,7 +9,6 @@ import { useCallback } from 'react';
 import { validate } from '../utils/Validation';
 
 function RecipeForm(props) {
-
     const { recipe, defaultIngredients, defaultCategory } = props;
 
     const [name, setName] = useState("");
@@ -20,6 +19,8 @@ function RecipeForm(props) {
     const [editing, setEditing] = useState(false);
     const [ingredientsOpt, setIngredientsOpt] = useState([]);
     const [categorysOpt, setCategoryOpt] = useState([]);
+    const [errorList, setErrorList] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
     const { token } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -52,11 +53,34 @@ function RecipeForm(props) {
         setCategory(e);
     }
 
+    const validation = useCallback(() => {
+        let errors = errorList;
+        if (!validate(name, "no-empty")) {
+            errors.name = "is-invalid"
+        } else {
+            errors.name = "is-valid"
+        };
+        let ingredientIds = ingredients.map((ingredient) => ingredient.value);
+        if (!validate(ingredientIds, "no-empty-array")) {
+
+            errors.ingredients = "is-invalid"
+        } else {
+            errors.ingredients = "is-valid"
+        }
+
+        setErrorList(errors);
+        setIsSubmit(false)
+
+    }, [errorList, ingredients, name])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validate(name, "no-empty")) {
-            alert("error in name")
-        };
+        setIsSubmit(true)
+
+        if (Object.values(errorList).includes("is-invalid")) {
+            return;
+        }
+
         editing ? editRecipe() : addRecipe();
 
     }
@@ -66,7 +90,7 @@ function RecipeForm(props) {
         let newRecipe = {
             name,
             steps,
-            "category_id": category,
+            "category_id": category.value,
             ingredients: ingredientIds,
             image
         }
@@ -80,7 +104,6 @@ function RecipeForm(props) {
 
             });
         } catch (error) {
-            alert("Error")
             console.log(error);
             return
         }
@@ -91,11 +114,12 @@ function RecipeForm(props) {
 
 
     const editRecipe = async () => {
+
         let ingredientIds = ingredients.map((ingredient) => ingredient.value);
         let newRecipe = {
             name,
             steps,
-            "category_id": category,
+            "category_id": category.value,
             ingredients: ingredientIds,
             image
         }
@@ -106,7 +130,6 @@ function RecipeForm(props) {
             }
         });
 
-        console.log(request);
         /*  if (request.response.status === 404) {
              alert("Error")
          } */
@@ -148,7 +171,6 @@ function RecipeForm(props) {
     useEffect(() => {
         setName(recipe?.name)
         setSteps(recipe?.steps)
-        setImage(recipe?.image?.image)
         setIngredients(defaultIngredients)
         setCategory(defaultCategory)
         getIngredients();
@@ -159,19 +181,27 @@ function RecipeForm(props) {
     useEffect(() => {
         if (recipe !== null) {
             setEditing(true);
-
         }
     }, [props?.recipe, recipe])
+
+    useEffect(() => {
+        if (isSubmit) {
+            validation()
+        }
+    }, [isSubmit])
 
     return (
 
         <div className='container my-4'>
-            <section className='Recipeform'>
+            <section className='Form'>
                 <h1>{editing ? "Edit" : "Add a new"} recipe!</h1>
-                <form className='Form' onSubmit={handleSubmit} >
+                <form className='FormBody needs-validation' onSubmit={handleSubmit} >
                     <div className="mb-3">
                         <label htmlFor="recipe-name" className="form-label">Recipe name</label>
-                        <input onChange={handleInput(setName)} type="text" defaultValue={recipe?.name} className="form-control" name="recipe-name" placeholder="Type recipe name." />
+                        <input onChange={handleInput(setName)} type="text" defaultValue={recipe?.name} className={`form-control ${errorList.name}`} name="recipe-name" placeholder="Type recipe name." />
+                        <div className="invalid-feedback">
+                            Please enter a name.
+                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="recipes" className="form-label">Ingredients</label>
@@ -180,9 +210,12 @@ function RecipeForm(props) {
                             name="colors"
                             options={ingredientsOpt}
                             value={ingredients}
-                            className="basic-multi-select"
+                            className={`basic-multi-select ${errorList?.ingredients}`}
                             classNamePrefix="select"
                         />
+                        <div className="invalid-feedback">
+                            Please enter at least two.
+                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="steps" className="form-label">Instructions</label>
@@ -193,12 +226,12 @@ function RecipeForm(props) {
                         <Select onChange={inputCategories}
                             name="colors"
                             options={categorysOpt}
-                            value={category}
+                            value={category ? category : categorysOpt[0]}
                             className="basic-multi-select"
                             classNamePrefix="select"
                         />
                     </div>
-                    {editing ? <div className='text-center'><h3>Current image</h3><img width="300px" className='mx-auto' src={`${IMAGE_URL}recipe/${image}`} alt="Recipe" style={{ display: "block" }} /></div> : ""}
+                    {editing ? <div className='text-center'><h3>Current image</h3><img width="300px" className='mx-auto' src={`${IMAGE_URL}recipe/${recipe?.image?.image}`} alt="Recipe" style={{ display: "block" }} /></div> : ""}
                     <div className="mb-3">
                         <label htmlFor="image" className="form-label">Image</label>
                         <input onChange={encodeImageFileAsURL} type="file" className="form-control" name="image" placeholder="Add a image." />
