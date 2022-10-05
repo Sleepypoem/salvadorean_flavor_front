@@ -1,17 +1,29 @@
 
 export function validate(param, validation) {
-    let emailRegexp = "";
+    let emailRegexp = /\S+@\S+\.\S+/;
 
 
+    // eslint-disable-next-line default-case
     switch (validation) {
         case "no-empty":
             if (param === "" || param === null || param === undefined) {
                 return false
+            } else {
+                return true;
             }
-            break;
+        case "email":
+            if (!emailRegexp.test(param)) {
+                return false
+            } else {
+                return true;
+            }
+        case "no-empty-array":
 
-        default:
-            return false;
+            if (param.length === 0) {
+                return false
+            } else {
+                return true;
+            }
     }
 
 
